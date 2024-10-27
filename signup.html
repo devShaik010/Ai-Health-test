@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - AI Health Companion</title>
+  <link rel="stylesheet" href="loginstyle.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="signup-link">
+        Already have an account? <a href="login.html">Log in</a>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { signup } from './profile.js';
+    
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      signup(event);
+    });
+  </script>
+</body>
+</html>

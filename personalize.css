@@ -1,0 +1,126 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 400px;
+    animation: slideIn 0.5s ease-in-out;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 1rem;
+  }
+  
+  select, input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+  
+  select:focus, input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .checkbox-group {
+    margin-bottom: 15px;
+  }
+  
+  .checkbox-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  button:hover {
+    background-color: #0069d9;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Additional Styling */
+  .container {
+    overflow: hidden; /* To ensure the animation doesn't spill out */
+  }
+  
+  /* Adding a subtle gradient to the background */
+  body {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  }
+  
+  /* Enhancing form elements */
+  select, input {
+    transition: border-color 0.3s;
+  }
+  
+  select option {
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  select option:hover {
+    background-color: #f4f4f4;
+  }
+  
+  /* Adding some padding around the form to make it breathe */
+  form {
+    padding: 20px;
+  }
+  
+  /* Centering the form within the container */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

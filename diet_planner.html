@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>AI Health Companion - Diet Planner</title>
+  <style>
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    select[multiple] {
+      height: 100px;
+    }
+    .input-container {
+      margin-bottom: 20px;
+    }
+    #updateInfoButton {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #updateInfoButton:hover {
+      background-color: #45a049;
+    }
+    #updateAcknowledgment {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #dff0d8;
+      border: 1px solid #d6e9c6;
+      border-radius: 4px;
+    }
+    .status-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .health-status, .calorie-status {
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .health-status {
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+    .calorie-status {
+      background-color: #d9edf7;
+      color: #31708f;
+    }
+    .followup-container {
+      margin-top: 20px;
+    }
+    .followup-container input {
+      width: calc(100% - 100px);
+      padding: 10px;
+      margin-right: 10px;
+    }
+    .followup-container button {
+      width: 80px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .followup-output-container {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .close-button {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header-controls">
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider round"></div>
+      </label>
+      <em>Dark Mode</em>
+    </div>
+    <button id="logoutButton" class="logout-button">Logout</button>
+  </div>
+
+  <main>
+    <h1>AI Health Companion - Diet Planner</h1>
+    
+    <div id="userProfile"></div>
+    
+    <div id="dietPlannerContainer">
+      <h2>Generate Your Diet Plan</h2>
+      <form id="initialForm">
+        <div class="input-container">
+          <label for="dietPreference">Diet Preference:</label>
+          <select id="dietPreference" name="dietPreference">
+            <option value="">Select Diet Preference</option>
+            <option value="balanced">Balanced</option>
+            <option value="lowCarb">Low Carb</option>
+            <option value="highProtein">High Protein</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="mediterranean">Mediterranean</option>
+          </select>
+        </div>
+        <div class="prompt-box">
+          <button type="submit">Generate Diet Plan</button>
+          <div id="generatingloader" class="loader" style="display: none;"></div>
+        </div>
+      </form>
+    </div>
+    
+    <div id="dietPlanOutput" class="output"></div>
+    
+    <div class="followup-container">
+      <input id="followupInput" placeholder="Ask a follow-up question" type="text">
+      <button id="followupButton">Send</button>
+    </div>
+    <div class="followup-output-container">
+      <button class="close-button">&#8628;</button>
+      <p class="followup-output">(Follow-up results will appear here)</p>
+    </div>
+  </main>
+
+  <script type="module" src="diet_planner.js"></script>
+  <script type="module">
+    import { displayUserProfile, logout } from './profile.js';
+    
+    window.onload = function() {
+      displayUserProfile();
+      
+      // Add event listener for logout button
+      const logoutButton = document.getElementById('logoutButton');
+      if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+      }
+    }
+  </script>
+</body>
+
+</html>

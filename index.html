@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>AI Health Companion</title>
+</head>
+
+<body>
+  <div class="header-controls">
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider round"></div>
+      </label>
+      <em>Dark Mode</em>
+    </div>
+    <button id="logoutButton" class="logout-button">Logout</button>
+  </div>
+
+  <main>
+    <h1>AI Health Companion</h1>
+    
+    <div id="userProfile"></div>
+    
+    <div id="chartContainer">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div class="status-container">
+      <div class="health-status" id="health"></div>
+      <div class="allergen-status" id="allergen"></div>
+    </div>
+    <!-- Add this new div for the profile response table -->
+    <div id="profileResponseContainer"></div>
+    <p class="output"></p>
+    <form id="initialForm">
+      <div class="image-picker">
+        <div class="file-input-wrapper">
+          <input type="file" id="fileInput1" name="file1" accept="image/*">
+          <label for="fileInput1" class="file-input-label" id="fileLabel1">Upload Front of Product</label>
+        </div>
+        <div class="file-input-wrapper">
+          <input type="file" id="fileInput2" name="file2" accept="image/*">
+          <label for="fileInput2" class="file-input-label" id="fileLabel2">Upload Back of Product</label>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <button type="submit">Analyze</button>
+        <div id="generatingloader" class="loader"></div>
+      </div>
+    </form>
+    
+    <div class="followup-container">
+      <input id="followupInput" placeholder="Ask a follow-up question" type="text">
+      <button id="followupButton">Send</button>
+    </div>
+    <div class="followup-output-container">
+      <button class="close-button">&#8628;</button>
+      <p class="followup-output">(Follow-up results will appear here)</p>
+    </div>
+    
+  </main>
+
+  <script type="module">
+    import { displayUserProfile, logout } from './profile.js';
+    
+    window.onload = function() {
+      displayUserProfile();
+      
+      // Add event listener for logout button
+      const logoutButton = document.getElementById('logoutButton');
+      if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+      }
+    }
+
+    // Theme switcher functionality
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    function switchTheme(e) {
+      if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }    
+    }
+    toggleSwitch.addEventListener('change', switchTheme, false);
+
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+      }
+    }
+  </script>
+  <script type="module" src="/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/heic2any@0.0.3/dist/heic2any.min.js"></script>
+</body>
+
+</html>

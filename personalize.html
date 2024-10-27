@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalize Your Profile - AI Health Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f4f4;
+            --text-color: #333333;
+            --border-color: #dddddd;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .custom-select {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .select-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+            color: var(--text-color);
+        }
+        .select-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            z-index: 1;
+        }
+        .select-option {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .select-option:hover {
+            background-color: var(--background-color);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Complete Your Profile</h2>
+        <form id="personalizeForm">
+            <div class="custom-select" data-name="healthConditions">
+                <button type="button" class="select-button">Health Conditions</button>
+                <div class="select-options">
+                    <div class="select-option" data-value="diabetes">Diabetes</div>
+                    <div class="select-option" data-value="hypertension">Hypertension</div>
+                    <div class="select-option" data-value="heartDisease">Heart Disease</div>
+                    <div class="select-option" data-value="asthma">Asthma</div>
+                    <div class="select-option" data-value="none">None</div>
+                </div>
+            </div>
+
+            <div class="custom-select" data-name="allergies">
+                <button type="button" class="select-button">Allergies</button>
+                <div class="select-options">
+                    <div class="select-option" data-value="peanuts">Peanuts</div>
+                    <div class="select-option" data-value="treeNuts">Tree Nuts</div>
+                    <div class="select-option" data-value="milk">Milk</div>
+                    <div class="select-option" data-value="eggs">Eggs</div>
+                    <div class="select-option" data-value="soy">Soy</div>
+                    <div class="select-option" data-value="wheat">Wheat</div>
+                    <div class="select-option" data-value="fish">Fish</div>
+                    <div class="select-option" data-value="shellfish">Shellfish</div>
+                    <div class="select-option" data-value="none">None</div>
+                </div>
+            </div>
+
+            <input type="number" id="weight" name="weight" placeholder="Your weight (kg)" required>
+
+            <div class="custom-select" data-name="dietaryRestrictions">
+                <button type="button" class="select-button">Dietary Restrictions</button>
+                <div class="select-options">
+                    <div class="select-option" data-value="vegetarian">Vegetarian</div>
+                    <div class="select-option" data-value="vegan">Vegan</div>
+                    <div class="select-option" data-value="glutenFree">Gluten-Free</div>
+                    <div class="select-option" data-value="lactoseIntolerant">Lactose Intolerant</div>
+                    <div class="select-option" data-value="kosher">Kosher</div>
+                    <div class="select-option" data-value="halal">Halal</div>
+                    <div class="select-option" data-value="none">None</div>
+                </div>
+            </div>
+
+            <div class="custom-select" data-name="fitnessGoals">
+                <button type="button" class="select-button">Fitness Goals</button>
+                <div class="select-options">
+                    <div class="select-option" data-value="weightLoss">Weight Loss</div>
+                    <div class="select-option" data-value="muscleGain">Muscle Gain</div>
+                    <div class="select-option" data-value="maintenance">Maintenance</div>
+                    <div class="select-option" data-value="generalHealth">General Health</div>
+                    <div class="select-option" data-value="increaseEndurance">Increase Endurance</div>
+                </div>
+            </div>
+
+            <button type="submit">Save Profile</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { saveProfile, logout } from './profile.js';
+        
+        document.getElementById('personalizeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                healthConditions: getSelectedValues('healthConditions'),
+                allergies: getSelectedValues('allergies'),
+                weight: document.getElementById('weight').value,
+                dietaryRestrictions: getSelectedValues('dietaryRestrictions'),
+                fitnessGoals: getSelectedValues('fitnessGoals')[0] // Assuming single selection
+            };
+            saveProfile(formData);
+        });
+
+        function getSelectedValues(dataName) {
+            return Array.from(document.querySelectorAll(`.custom-select[data-name="${dataName}"] .select-option.selected`))
+                .map(option => option.dataset.value);
+        }
+
+        // Custom select functionality
+        const customSelects = document.querySelectorAll('.custom-select');
+        customSelects.forEach(select => {
+            const button = select.querySelector('.select-button');
+            const options = select.querySelector('.select-options');
+            const optionElements = options.querySelectorAll('.select-option');
+
+            button.addEventListener('click', () => {
+                options.style.display = options.style.display === 'block' ? 'none' : 'block';
+            });
+
+            optionElements.forEach(option => {
+                option.addEventListener('click', () => {
+                    const isMultiSelect = ['healthConditions', 'allergies', 'dietaryRestrictions'].includes(select.dataset.name);
+                    
+                    if (!isMultiSelect) {
+                        optionElements.forEach(el => el.classList.remove('selected'));
+                    }
+                    
+                    option.classList.toggle('selected');
+
+                    const selectedValues = Array.from(select.querySelectorAll('.select-option.selected'))
+                        .map(el => el.textContent);
+
+                    button.textContent = selectedValues.length > 0 ? selectedValues.join(', ') : select.dataset.name;
+                    options.style.display = 'none';
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.select-button')) {
+                customSelects.forEach(select => {
+                    select.querySelector('.select-options').style.display = 'none';
+                });
+            }
+        });
+
+        // Add this line to create a logout button
+        document.body.insertAdjacentHTML('beforeend', '<button id="logoutButton">Logout</button>');
+        
+        document.getElementById('logoutButton').addEventListener('click', logout);
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
